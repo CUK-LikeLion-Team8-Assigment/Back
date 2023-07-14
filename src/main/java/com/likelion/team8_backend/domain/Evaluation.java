@@ -64,5 +64,4 @@ public class Evaluation {
 
     private Date updatedAt;
 
-
 }
