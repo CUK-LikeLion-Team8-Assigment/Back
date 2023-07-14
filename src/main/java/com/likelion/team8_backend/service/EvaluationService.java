@@ -24,7 +24,7 @@ public class EvaluationService {
     public Evaluation write(WriteRequest writeRequest){
 
         Evaluation evaluation = Evaluation.builder()
-                .userID(writeRequest.getUserID())
+                .userId(writeRequest.getUserId())
                 .lectureName(writeRequest.getLectureName())
                 .professorName(writeRequest.getProfessorName())
                 .lectureYear(writeRequest.getLectureYear())
@@ -46,12 +46,12 @@ public class EvaluationService {
 
     //게시물 상세 조회
     @Transactional
-    public EvalutaionDto getEvaluation(Long evaluationID){
-        Evaluation evaluation = evaluationRepository.findById(evaluationID).orElseThrow(() -> new NoSuchElementException("Evaluation not found"));;
+    public EvalutaionDto getEvaluation(Long id){
+        Evaluation evaluation = evaluationRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Evaluation not found"));;
 
         return EvalutaionDto.builder()
-                .evaluationID(evaluationID)
-                .userID(evaluation.getUserID())
+                .id(id)
+                .userId(evaluation.getUserId())
                 .lectureName(evaluation.getLectureName())
                 .professorName(evaluation.getProfessorName())
                 .lectureYear(evaluation.getLectureYear())
@@ -74,18 +74,18 @@ public class EvaluationService {
 
     //게시물 수정
     @Transactional
-    public void modify(ModifyRequest request, Long evaluationID){
+    public void modify(ModifyRequest request, Long id){
 
-        Optional<Evaluation> selected = evaluationRepository.findById(evaluationID);
+        Optional<Evaluation> selected = evaluationRepository.findById(id);
 
         //아이디 패스워드 일치 확인? 세션 있으면 확인할 필요 없어보임
         //게시물이 존재하는 경우
         if(selected.isPresent()){
             //작성자와 글을 수정하는 사람이 동일인인지 확인
-            if(selected.get().getUserID().equals(request.getUserID())){
+            if(selected.get().getUserId().equals(request.getUserId())){
                 Evaluation evaluation = Evaluation.builder()
-                        .evaluationID(evaluationID)
-                        .userID(request.getUserID())
+                        .id(id)
+                        .userId(request.getUserId())
                         .lectureName(selected.get().getLectureName())
                         .professorName(selected.get().getProfessorName())
                         .lectureYear(request.getLectureYear())
@@ -107,11 +107,11 @@ public class EvaluationService {
    }
 
     //게시물 삭제
-    public void delete(DeleteRequest request, Long evaluationID){
+    public void delete(DeleteRequest request, Long id){
 
-        Evaluation evaluation = evaluationRepository.findById(evaluationID).orElseThrow(() -> new NoSuchElementException("Evaluation not found"));;
+        Evaluation evaluation = evaluationRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Evaluation not found"));;
 
-        if(evaluation.getUserID().equals(request.getUserID())){
+        if(evaluation.getUserId().equals(request.getUserId())){
             evaluationRepository.delete(evaluation);
         }
     }

@@ -6,10 +6,7 @@ import lombok.Data;
 @Data
 public class DeleteRequest {
     @NotNull
-    private String userID;
-
-    @NotNull
-    private String userPassword;
+    private String userId;
 
     @NotNull
     private String userEmail;

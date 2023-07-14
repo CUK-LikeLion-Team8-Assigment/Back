@@ -31,10 +31,10 @@ public class EvaluationController {
     }
 
     //게시물 수정
-    @PatchMapping("/modify/{evaluationID}")
-    public ResponseEntity<Response> modify(@RequestBody ModifyRequest request, @PathVariable Long evaluationID){
+    @PatchMapping("/modify/{id}")
+    public ResponseEntity<Response> modify(@RequestBody ModifyRequest request, @PathVariable Long id){
 
-        evaluationService.modify(request, evaluationID);
+        evaluationService.modify(request, id);
 
         Response response = Response.builder()
                 .code("200")
@@ -47,15 +47,15 @@ public class EvaluationController {
     }
 
     //게시물 상세 조회
-    @GetMapping("/{evaluationID}")
-    public EvalutaionDto getEvaluation(@PathVariable Long evaluationID){
-        return evaluationService.getEvaluation(evaluationID);
+    @GetMapping("/{id}")
+    public EvalutaionDto getEvaluation(@PathVariable Long id){
+        return evaluationService.getEvaluation(id);
     }
 
     //게시물 삭제
-    @DeleteMapping("/delete/{evaluationID}")
-    public ResponseEntity<Response> delete(@RequestBody DeleteRequest request, @PathVariable Long evaluationID){
-        evaluationService.delete(request, evaluationID);
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Response> delete(@RequestBody DeleteRequest request, @PathVariable Long id){
+        evaluationService.delete(request, id);
         Response response = Response.builder()
                 .code("204")
                 .result(Response.Result.builder()
@@ -63,6 +63,6 @@ public class EvaluationController {
                         .build())
                 .build();
 
-        return new ResponseEntity<>(response, HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

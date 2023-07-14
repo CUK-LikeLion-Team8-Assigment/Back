@@ -14,13 +14,13 @@ import java.util.Date;
 public class WriteRequest {
 
     @NotNull
-    private String userID;
+    private String userId;
     @NotNull
     private String lectureName;
     @NotNull
     private String professorName;
     @NotNull
-    private String lectureYear;
+    private Integer lectureYear;
     @NotNull
     private String semesterDivide;
     @NotNull

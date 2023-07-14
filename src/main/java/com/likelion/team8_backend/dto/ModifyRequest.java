@@ -7,16 +7,13 @@ import lombok.Data;
 public class ModifyRequest {
 
     @NotNull
-    private String userID;
-
-    @NotNull
-    private String userPassword;
+    private String userId;
 
     @NotNull
     private String userEmail;
 
     @NotNull
-    private String lectureYear;
+    private Integer lectureYear;
 
     @NotNull
     private String totalScore;

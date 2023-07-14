@@ -20,10 +20,10 @@ public class Evaluation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long evaluationID;
+    private Long id;
 
     @Column(nullable = false)
-    private String userID;
+    private String userId;
 
     @Column(nullable = false)
     private String lectureName;
@@ -32,7 +32,7 @@ public class Evaluation {
     private String professorName;
 
     @Column(nullable = false)
-    private String lectureYear;
+    private Integer lectureYear;
 
     @Column(nullable = false)
     private String semesterDivide;
