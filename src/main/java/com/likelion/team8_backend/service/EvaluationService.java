@@ -27,7 +27,7 @@ public class EvaluationService {
         List<EvaluationDto> evaluationDtoList = postsList.stream()
                 .map(evaluation -> {
                     EvaluationDto evaluationDto = evaluation.toDto();
-                    int likeCount = likeyRepository.countByEvaluation_Id(evaluation.getId());
+                    int likeCount = likeyRepository.countById(evaluation.getId());
                     evaluationDto.setLikeCount(likeCount);
                     return evaluationDto;
                 })

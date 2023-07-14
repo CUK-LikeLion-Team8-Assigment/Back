@@ -19,8 +19,8 @@ public class LikeyService {
     private final Logger logger = LoggerFactory.getLogger(LikeyService.class);
 
     @Transactional
-    public LikeyDto likeEvaluation(Long evaluationId, String userId) {
-        Optional<Likey> existingLikey = likeyRepository.findByEvaluation_IdAndUserId(evaluationId, userId);
+    public LikeyDto likeEvaluation(Long Id, String userId) {
+        Optional<Likey> existingLikey = likeyRepository.findByIdAndUserId(Id, userId);
 
         if (existingLikey.isPresent()) {
             // 이미 좋아요, likey 삭제
@@ -30,7 +30,7 @@ public class LikeyService {
         } else {
             // 좋아요를 추가합니다.
             Likey newLikey = new Likey();
-            newLikey.setEvaluationId(evaluationId);
+            newLikey.setId(Id);
             newLikey.setUserId(userId);
             newLikey.setCreatedAt(LocalDateTime.now());
             newLikey.setUpdatedAt(LocalDateTime.now());

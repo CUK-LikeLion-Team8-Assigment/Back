@@ -42,15 +42,15 @@ public class EvaluationController {
 
     /* 추천기능 */
     @PostMapping("/like")
-    public BaseResponse<LikeyDto> likeEvaluation(@RequestParam("evaluationId") Long evaluationId,
+    public BaseResponse<LikeyDto> likeEvaluation(@RequestParam("Id") Long Id,
                                                  @RequestParam("userId") String userId) {
-        Optional<Evaluation> evaluationOptional = evaluationRepository.findById(evaluationId);
+        Optional<Evaluation> evaluationOptional = evaluationRepository.findById(Id);
         if (evaluationOptional.isEmpty()) {
             return new BaseResponse<>(BaseResponseStatus.NOT_FOUND);
         }
 
         Evaluation evaluation = evaluationOptional.get();
-        Optional<Likey> existingLikey = likeyRepository.findByEvaluation_IdAndUserId(evaluationId, userId);
+        Optional<Likey> existingLikey = likeyRepository.findByIdAndUserId(Id, userId);
 
         if (existingLikey.isPresent()) {
             // 이미 좋아요, likey 삭제
