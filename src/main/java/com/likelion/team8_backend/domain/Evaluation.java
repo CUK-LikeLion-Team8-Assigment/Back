@@ -19,58 +19,55 @@ import java.util.List;
 public class Evaluation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(nullable = false)
     private Long id;
-
-    @Column(name = "evaluation_id")
-    private Long evaluationId;
 
     @OneToMany(mappedBy = "evaluation", cascade = CascadeType.ALL)
     private List<Likey> likeys;
 
-    @Column(name = "user_id")
+    @Column(nullable = false)
     private String userId;
 
-    @Column(name = "lecture_name")
+    @Column(nullable = false)
     private String lectureName;
 
-    @Column(name = "professor_name")
+    @Column(nullable = false)
     private String professorName;
 
-    @Column(name = "lecture_year")
+    @Column(nullable = false)
     private Integer lectureYear;
 
-    @Column(name = "semester_divide")
+    @Column(nullable = false)
     private String semesterDivide;
 
-    @Column(name = "lecture_divide")
+    @Column(nullable = false)
     private String lectureDivide;
 
-    @Column(name = "evaluation_title")
+    @Column(nullable = false)
     private String evaluationTitle;
 
-    @Column(name = "evaluation_content")
+    @Column(nullable = false)
     private String evaluationContent;
 
-    @Column(name = "total_score")
+    @Column(nullable = false)
     private String totalScore;
 
-    @Column(name = "credit_score")
+    @Column(nullable = false)
     private String creditScore;
 
-    @Column(name = "comfortable_score")
+    @Column(nullable = false)
     private String comfortableScore;
 
-    @Column(name = "lecture_score")
+    @Column(nullable = false)
     private String lectureScore;
 
-    @Column(name = "like_count")
+    @Column(nullable = false)
     private Integer likeCount;
 
-    @Column(name = "created_at")
+    @Column(nullable = false)
     private Date createdAt;
 
-    @Column(name = "updated_at")
+    @Column(nullable = false)
     private Date updatedAt;
 
     public void setId(Long id) {
@@ -80,7 +77,6 @@ public class Evaluation {
     public EvaluationDto toDto(){
         return EvaluationDto.builder()
                 .id(id)
-                .evaluationId(evaluationId)
                 .userId(userId)
                 .lectureName(lectureName)
                 .professorName(professorName)
