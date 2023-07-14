@@ -1,76 +1,54 @@
-package com.likelion.team8_backend.domain;
+package com.likelion.team8_backend.dto;
 
+import com.likelion.team8_backend.domain.Evaluation;
 import lombok.*;
-import javax.persistence.*;
-import java.util.Date;
-import com.likelion.team8_backend.dto.EvaluationDto;
-import java.util.List;
 
-@Entity
-@Table(name = "evaluation")
+import java.time.LocalDateTime;
+import java.util.Date;
+
+
 @Getter
+@Setter
+@ToString
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Evaluation {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class EvaluationDto {
     private Long id;
 
-    @OneToMany(mappedBy = "evaluation", cascade = CascadeType.ALL)
-    private List<Likey> likeys;
-
-    @Column(nullable = false)
     private String userId;
 
-    @Column(nullable = false)
     private String lectureName;
 
-    @Column(nullable = false)
     private String professorName;
 
-    @Column(nullable = false)
     private Integer lectureYear;
 
-    @Column(nullable = false)
     private String semesterDivide;
 
-    @Column(nullable = false)
     private String lectureDivide;
 
-    @Column(nullable = false)
     private String evaluationTitle;
 
-    @Column(nullable = false)
     private String evaluationContent;
 
-    @Column(nullable = false)
     private String totalScore;
 
-    @Column(nullable = false)
     private String creditScore;
 
-    @Column(nullable = false)
     private String comfortableScore;
 
-    @Column(nullable = false)
     private String lectureScore;
 
-    @Column(nullable = true)
     private Integer likeCount;
 
-    @Column(nullable = false)
     private Date createdAt;
 
-    @Column(nullable = false)
     private Date updatedAt;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
-    public EvaluationDto toDto(){
-        return EvaluationDto.builder()
+    public Evaluation toEntity(){
+        return Evaluation.builder()
                 .id(id)
                 .userId(userId)
                 .lectureName(lectureName)

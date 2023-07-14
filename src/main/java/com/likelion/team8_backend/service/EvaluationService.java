@@ -1,18 +1,20 @@
 package com.likelion.team8_backend.service;
 
 import com.likelion.team8_backend.domain.Evaluation;
-import com.likelion.team8_backend.dto.DeleteRequest;
-import com.likelion.team8_backend.dto.EvalutaionDto;
-import com.likelion.team8_backend.dto.ModifyRequest;
-import com.likelion.team8_backend.dto.WriteRequest;
+import com.likelion.team8_backend.dto.*;
 import com.likelion.team8_backend.repository.EvaluationRepository;
+import com.likelion.team8_backend.repository.LikeyRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class EvaluationService {
@@ -116,4 +118,23 @@ public class EvaluationService {
         }
     }
 
+    @Autowired
+    LikeyRepository likeyRepository;
+    private final Logger logger = LoggerFactory.getLogger(EvaluationService.class);
+
+    @Transactional
+    public List<EvaluationDto> search(String keyword, String keyword2, String keyword3) {
+        List<Evaluation> postsList = evaluationRepository.findByConditions(keyword, keyword2, keyword3);
+
+        List<EvaluationDto> evaluationDtoList = postsList.stream()
+                .map(evaluation -> {
+                    EvaluationDto evaluationDto = evaluation.toDto();
+                    int likeCount = likeyRepository.countById(evaluation.getId());
+                    evaluationDto.setLikeCount(likeCount);
+                    return evaluationDto;
+                })
+                .collect(Collectors.toList());
+
+        return evaluationDtoList;
+    }
 }
