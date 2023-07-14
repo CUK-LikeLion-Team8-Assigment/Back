@@ -1,25 +1,20 @@
 package com.likelion.team8_backend.domain;
 
-import com.likelion.team8_backend.dto.EvaluationDto;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
-
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.Date;
+import com.likelion.team8_backend.dto.EvaluationDto;
 import java.util.List;
 
 @Entity
 @Table(name = "evaluation")
 @Getter
-@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Evaluation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
     private Long id;
 
     @OneToMany(mappedBy = "evaluation", cascade = CascadeType.ALL)
@@ -61,7 +56,7 @@ public class Evaluation {
     @Column(nullable = false)
     private String lectureScore;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Integer likeCount;
 
     @Column(nullable = false)
