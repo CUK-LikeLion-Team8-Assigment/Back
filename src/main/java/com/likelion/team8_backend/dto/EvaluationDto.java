@@ -4,6 +4,7 @@ import com.likelion.team8_backend.domain.Evaluation;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 
 @Getter
@@ -33,19 +34,19 @@ public class EvaluationDto {
 
     private String evaluationContent;
 
-    private Integer totalScore;
+    private String totalScore;
 
-    private Integer creditScore;
+    private String creditScore;
 
-    private Integer comfortableScore;
+    private String comfortableScore;
 
-    private Integer lectureScore;
+    private String lectureScore;
 
     private Integer likeCount;
 
-    private LocalDateTime createdAt;
+    private Date createdAt;
 
-    private LocalDateTime updatedAt;
+    private Date updatedAt;
 
 
     public Evaluation toEntity(){

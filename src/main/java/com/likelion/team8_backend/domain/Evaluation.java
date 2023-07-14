@@ -6,6 +6,7 @@ import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -52,25 +53,25 @@ public class Evaluation {
     private String evaluationContent;
 
     @Column(name = "total_score")
-    private Integer totalScore;
+    private String totalScore;
 
     @Column(name = "credit_score")
-    private Integer creditScore;
+    private String creditScore;
 
     @Column(name = "comfortable_score")
-    private Integer comfortableScore;
+    private String comfortableScore;
 
     @Column(name = "lecture_score")
-    private Integer lectureScore;
+    private String lectureScore;
 
     @Column(name = "like_count")
     private Integer likeCount;
 
     @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    private Date createdAt;
 
     @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+    private Date updatedAt;
 
     public void setId(Long id) {
         this.id = id;
