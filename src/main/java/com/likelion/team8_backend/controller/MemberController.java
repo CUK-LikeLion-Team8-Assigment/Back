@@ -9,6 +9,7 @@ import com.likelion.team8_backend.dto.MemberDTO;
 import com.likelion.team8_backend.service.MemberService;
 import org.springframework.http.ResponseEntity;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @Controller
 @RequiredArgsConstructor
 public class MemberController {
