@@ -16,8 +16,6 @@ import java.util.Date;
 public class EvaluationDto {
     private Long id;
 
-    private Long evaluationId;
-
     private String userId;
 
     private String lectureName;
@@ -52,7 +50,6 @@ public class EvaluationDto {
     public Evaluation toEntity(){
         return Evaluation.builder()
                 .id(id)
-                .evaluationId(evaluationId)
                 .userId(userId)
                 .lectureName(lectureName)
                 .professorName(professorName)

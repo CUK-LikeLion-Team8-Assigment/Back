@@ -8,9 +8,9 @@ import java.util.Optional;
 
 @Repository
 public interface LikeyRepository extends JpaRepository<Likey, Long> {
-    Optional<Likey> findByEvaluation_IdAndUserId(Long evaluationId, String userId);
+    Optional<Likey> findByIdAndUserId(Long Id, String userId);
 
-    int countByEvaluation_Id(Long evaluationId);
+    int countById(Long Id);
 }
 
 

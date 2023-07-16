@@ -57,11 +57,12 @@ public class MemberService {
             return null;
         }
     }
+
     public boolean logout(String userEmail, String userID, String userPassword) {
         Optional<Member> optionalMember = memberRepository.findByUserEmail(userEmail);
-        if (optionalMember.isPresent()) { // 이메일을 기준으로 테이블에서 해당 값을 찾는다.
+        if (optionalMember.isPresent()) {
             Member member = optionalMember.get();
-            if (member.getUserID().equals(userID) && member.getUserPassword().equals(userPassword) && member.isUserLogin()) {
+            if (member.getUserID().equals(userID) && member.getUserPassword().equals(userPassword) && member.getUserLogin()) {
                 member.setUserLogin(false);
                 memberRepository.save(member);
                 return true;
@@ -89,4 +90,6 @@ public class MemberService {
         }
         return false;
     }
+
+
 }

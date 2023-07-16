@@ -8,8 +8,12 @@ import org.springframework.web.bind.annotation.*;
 import com.likelion.team8_backend.dto.MemberDTO;
 import com.likelion.team8_backend.service.MemberService;
 import org.springframework.http.ResponseEntity;
+import javax.servlet.http.HttpSession;
 
 import javax.servlet.http.HttpSession;
+
+
+@CrossOrigin(origins = "http://localhost:3000")
 
 @Controller
 @RequiredArgsConstructor
@@ -45,12 +49,12 @@ public class MemberController {
 
             // session에 해당 ID 저장
             session.setAttribute("userID", loginResult.getUserID());
-//            sessionStorage.setItem("userID", loginResult.getUserID())
             return ResponseEntity.ok(response);
         } else {
             // 로그인 실패
             ApiResponse response = new ApiResponse(402, "login failed");
             return ResponseEntity.status(402).body(response);
+
         }
     }
     @PatchMapping("logout")
@@ -81,6 +85,7 @@ public class MemberController {
                 } else {
                     ApiResponse response = new ApiResponse(402, "logout failed");
                     return ResponseEntity.status(402).body(response);
+
                 }
             } else {
                 ApiResponse response = new ApiResponse(402, "logout failed");
