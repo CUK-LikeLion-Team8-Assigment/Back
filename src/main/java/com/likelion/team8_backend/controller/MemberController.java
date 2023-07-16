@@ -54,7 +54,17 @@ public class MemberController {
             // 로그인 실패
             ApiResponse response = new ApiResponse(402, "login failed");
             return ResponseEntity.status(402).body(response);
+        }
+    }
+    // session 값 가지고 오기
+    @GetMapping("getSession")
+    public ResponseEntity<String> getSessionValue(HttpSession session) {
+        String userID = (String) session.getAttribute("userID");
 
+        if (userID != null) {
+            return ResponseEntity.ok(userID);
+        } else {
+            return ResponseEntity.notFound().build();
         }
     }
     @PatchMapping("logout")
