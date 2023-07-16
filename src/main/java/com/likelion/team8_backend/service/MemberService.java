@@ -69,6 +69,16 @@ public class MemberService {
         }
         return false;
     }
+    // 로그아웃을 할때 사용
+    public boolean checkUserLogin(String userEmail, String userID, String userPassword) {
+        Optional<Member> optionalMember = memberRepository.findByUserEmail(userEmail);
+        if (optionalMember.isPresent()) {
+            Member member = optionalMember.get();
+            return member.getUserID().equals(userID) && member.getUserPassword().equals(userPassword) && member.getUserLogin();
+        }
+        return false;
+    }
+
 
     public boolean deleteMember(String userID, String userPassword) {
         Optional<Member> optionalMember = memberRepository.findByUserIDAndUserPassword(userID, userPassword);
