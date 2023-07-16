@@ -10,35 +10,35 @@ import com.likelion.team8_backend.service.MemberService;
 import org.springframework.http.ResponseEntity;
 import javax.servlet.http.HttpSession;
 
+import javax.servlet.http.HttpSession;
+
+
 @CrossOrigin(origins = "http://localhost:3000")
+
 @Controller
 @RequiredArgsConstructor
 public class MemberController {
     private final MemberService memberService;
 
     @PostMapping("join")
-    public ResponseEntity<ApiResponse> save(@RequestBody MemberDTO memberDTO) {
+    public ResponseEntity<ApiResponse> save(@RequestBody  MemberDTO memberDTO) {
         boolean isExistingEmail = memberService.checkExistingEmail(memberDTO.getUserEmail());
 
         boolean isValidEmail = memberService.isValidEmail(memberDTO.getUserEmail());
 
         if (isExistingEmail) {
-            ApiResponse response = new ApiResponse(400,
-                    "Membership registration failed. This is a duplicate member.");
-//            ApiResponse response = new ApiResponse(400, "회원가입 실패. 중복회원입니다.");
-            return ResponseEntity.ok(response);
+            ApiResponse response = new ApiResponse(400, "Member registration failed. This is a duplicate member.");
+            return ResponseEntity.status(400).body(response);
         } else if (!isValidEmail) {
-            ApiResponse response = new ApiResponse(406, "Invalid e-mail format.");
-//            ApiResponse response = new ApiResponse(406, "유효하지 않은 이메일 형식입니다.");
-            return ResponseEntity.ok(response);
+            ApiResponse response = new ApiResponse(406, "Invalid Email format.");
+            return ResponseEntity.status(406).body(response);
         } else {
             memberService.save(memberDTO);
-            ApiResponse response = new ApiResponse(200, "join succeed");
-//            ApiResponse response = new ApiResponse(200, "회원가입 완료");
+            ApiResponse response = new ApiResponse(200, "Member registration succeed");
             return ResponseEntity.ok(response);
         }
     }
-
+    // , HttpSession session
     @PostMapping("login")
     public ResponseEntity<ApiResponse> login(@RequestBody MemberDTO memberDTO,  HttpSession session) {
         MemberDTO loginResult = memberService.login(memberDTO);
@@ -53,7 +53,8 @@ public class MemberController {
         } else {
             // 로그인 실패
             ApiResponse response = new ApiResponse(402, "login failed");
-            return ResponseEntity.ok(response);
+            return ResponseEntity.status(402).body(response);
+
         }
     }
     @PatchMapping("logout")
@@ -61,7 +62,7 @@ public class MemberController {
         // 회원이 존재하지 않는 경우
         if (memberDTO == null) {
             ApiResponse response = new ApiResponse(402, "logout failed");
-            return ResponseEntity.badRequest().body(response);
+            return ResponseEntity.status(402).body(response);
         }
 
         String userEmail = memberDTO.getUserEmail();
@@ -83,15 +84,16 @@ public class MemberController {
                     return ResponseEntity.ok(response);
                 } else {
                     ApiResponse response = new ApiResponse(402, "logout failed");
-                    return ResponseEntity.ok(response);
+                    return ResponseEntity.status(402).body(response);
+
                 }
             } else {
                 ApiResponse response = new ApiResponse(402, "logout failed");
-                return ResponseEntity.ok(response);
+                return ResponseEntity.status(402).body(response);
             }
         } else {
             ApiResponse response = new ApiResponse(402, "logout failed");
-            return ResponseEntity.ok(response);
+            return ResponseEntity.status(402).body(response);
         }
     }
     @DeleteMapping("deleteuser")
@@ -105,7 +107,7 @@ public class MemberController {
             return ResponseEntity.ok(response);
         } else {
             ApiResponse response = new ApiResponse(402, "Membership withdrawal failed");
-            return ResponseEntity.ok(response);
+            return ResponseEntity.status(402).body(response);
         }
     }
 
