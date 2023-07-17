@@ -67,45 +67,23 @@ public class MemberController {
             return ResponseEntity.notFound().build();
         }
     }
+
     @PatchMapping("logout")
-    public ResponseEntity<ApiResponse> logout(@RequestBody MemberDTO memberDTO, HttpSession session) {
-        // 회원이 존재하지 않는 경우
-        if (memberDTO == null) {
-            ApiResponse response = new ApiResponse(402, "logout failed");
-            return ResponseEntity.status(402).body(response);
-        }
+    public ResponseEntity<ApiResponse> logout(HttpSession session) {
+        // 세션에서 userID 가져오기
+        String userID = (String) session.getAttribute("userID");
 
-        String userEmail = memberDTO.getUserEmail();
-        String userID = memberDTO.getUserID();
-        String userPassword = memberDTO.getUserPassword();
-        boolean isExistingEmail = memberService.checkExistingEmail(userEmail);
+        if (userID != null) {
+            ApiResponse response = new ApiResponse(200, "logout succeed");
+            session.removeAttribute("userID");
+            return ResponseEntity.ok(response);
 
-        if (isExistingEmail) {
-            // userLogin 값이 1인지 확인
-            boolean isUserLoggedIn = memberService.checkUserLogin(userEmail, userID, userPassword);
-
-            if (isUserLoggedIn) {
-                boolean isLogoutSuccessful = memberService.logout(userEmail, userID, userPassword);
-
-                if (isLogoutSuccessful) {
-                    ApiResponse response = new ApiResponse(200, "logout succeed");
-                    // 로그아웃시 해당 userID의 내용을 세션에서 삭제
-                    session.removeAttribute("userID");
-                    return ResponseEntity.ok(response);
-                } else {
-                    ApiResponse response = new ApiResponse(402, "logout failed");
-                    return ResponseEntity.status(402).body(response);
-
-                }
-            } else {
-                ApiResponse response = new ApiResponse(402, "logout failed");
-                return ResponseEntity.status(402).body(response);
-            }
         } else {
             ApiResponse response = new ApiResponse(402, "logout failed");
             return ResponseEntity.status(402).body(response);
         }
     }
+
     @DeleteMapping("deleteuser")
     public ResponseEntity<ApiResponse> deleteMember(@RequestBody MemberDTO memberDTO) {
         String userID = memberDTO.getUserID();
